@@ -48,7 +48,7 @@ func (f *authForm) Validate() bool {
 	f.Errors = map[string]string{}
 
 	if strings.TrimSpace(f.Login) == "" {
-		f.Errors["Auth"] = "введите имя пользователя"
+		f.Errors["Login"] = "введите имя пользователя"
 	}
 
 	if strings.TrimSpace(f.Password) == "" {
@@ -72,7 +72,7 @@ func (f *registrationForm) Validate() bool {
 	f.Errors = map[string]string{}
 
 	if strings.TrimSpace(f.Login) == "" {
-		f.Errors["Auth"] = "введите имя пользователя"
+		f.Errors["Login"] = "введите имя пользователя"
 	}
 
 	if strings.TrimSpace(f.Password) == "" {

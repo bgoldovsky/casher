@@ -346,7 +346,7 @@ func (h *PageHandler) Registration(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/error/", http.StatusTemporaryRedirect)
 		return
 	}
-	birth := time.Date(1986, 4, 15, 0, 0, 0, 0, local)
+	birth := time.Date(1986, 4, 19, 16, 15, 0, 0, local)
 	form := registrationForm{
 		Birth: birth,
 	}
@@ -399,7 +399,7 @@ func (h *PageHandler) Registration(w http.ResponseWriter, r *http.Request) {
 	userID, err := h.usersSrv.Create(form.Login, form.Password, form.Name, form.Birth)
 	// Если пользователь с таким логином уже существует сообщаем об этом
 	if err == users.ErrLoginExists {
-		form.Errors["Auth"] = "Пользователь с таким именем уже существует"
+		form.Errors["Login"] = "Пользователь с таким именем уже существует"
 		err = tmpl.ExecuteTemplate(w, "registration", form)
 		if err != nil {
 			logger.Log.WithError(err).WithField("form", form).Error("registration handler error")
