@@ -1,0 +1,45 @@
+<!--
+Управляющие конструкции в Go Templates
+
+{{/* a comment */}}    Комментарий
+{{.}}   Рендеринг корневого элемента
+{{.Subject}}    Рендеринг поля Subject корневого элемента
+{{if .Done}} {{else}} {{end}}	Конструкция if/else
+{{range .Todos}} {{.}} {{end}}	Цикл, . в нем является переменной диапазона
+{{block "content" .}} {{end}}	Определяет именованный блок
+
+-->
+
+{{ define "index" }}
+{{ template "header" }}
+
+<main class="container">
+    <div class="bg-light p-5 rounded">
+        <h1>Привет, {{ .Name }}</h1>
+
+        <!-- Уловные выражения в шаблонизаторе -->
+        <!-- eq - equals, равно -->
+        <!-- ne - not equals, не равно -->
+        <!-- lt - lower then, меньше чем -->
+        <!-- gt - greater then, больше чем -->
+        {{ if eq .Balance 0.0 }}
+        <p class="lead"><b>У тебя нулевой баланс</b></p>
+        {{ else if gt .Balance 0.0 }}
+        <p class="lead"><b>У тебя положительный баланс</b></p>
+        {{ else }}
+        <p class="lead"><b>У тебя отрицательный баланс</b></p>
+        {{ end }}
+
+        <!--Обращение к полям переданного для рендеринга объекта-->
+        <p>
+            <b>Пользователь:</b> {{ .Login }}<br/>
+            <b>Имя:</b> {{ .Name }}<br/>
+            <b>Возраст:</b> {{ .Age }} лет<br/>
+        <!--Форматирование строки в шаблоне функцией printf-->
+            <b>Сумма:</b> {{ printf "%.2f" .Balance }}</p>
+        </p>
+    </div>
+</main>
+
+{{ template "footer" }}
+{{ end }}

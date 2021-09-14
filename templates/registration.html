@@ -1,0 +1,65 @@
+{{ define "registration" }}
+{{ template "headerUnauthorized" }}
+
+<main class="container">
+    <div class="bg-light p-5 rounded">
+        <h1>Регистрация</h1>
+        <form method="POST" class="col col-lg-4">
+
+            <!--Логин-->
+            <div class="form-group">
+                <label for="input-login">Имя пользователя:</label>
+                {{ with .Errors.Login }}
+                <label for="input-login" class="text-danger">{{ $.Errors.Login }}</label>
+                {{ end }}
+                <input type="text" class="form-control" name="login" id="input-login" placeholder="Введите имя пользователя" value="{{ .Login }}">
+            </div>
+
+            <!--Пароль-->
+            <div class="form-group">
+                <label for="input-password">Пароль:</label>
+                {{ with .Errors.Password }}
+                <label for="input-password" class="text-danger">{{ $.Errors.Password }}</label>
+                {{ end }}
+                <input type="password" class="form-control" name="password" id="input-password" placeholder="Введите пароль">
+            </div>
+
+            <!--Пароль-->
+            <div class="form-group">
+                <label for="input-confirm-password">Пароль:</label>
+                {{ with .Errors.Password }}
+                <label for="input-confirm-password" class="text-danger">{{ $.Errors.Password }}</label>
+                {{ end }}
+                <input type="password" class="form-control" name="confirm-password" id="input-confirm-password" placeholder="Введите пароль">
+            </div>
+
+            <!--Настоящее имя-->
+            <div class="form-group">
+                <label for="input-name">Настоящее имя:</label>
+                {{ with .Errors.Name }}
+                <label for="input-name" class="text-danger">{{ $.Errors.Name }}</label>
+                {{ end }}
+                <input type="text" class="form-control" name="name" id="input-name" placeholder="Введите настоящее имя" value="{{ .Name }}">
+            </div>
+
+            <!--Дата рождения yyyy-mm-dd-->
+            <div class="form-group">
+                <label for="input-birth">Дата рождения:</label>
+                {{ with .Errors.Birth }}
+                <label for="input-birth" class="text-danger">{{ $.Errors.Birth }}</label>
+                {{ end }}
+                <div class='input-group date' id='input-birth'>
+                    <input type='date' name="birth" class="form-control" value="{{ .Birth.Format "2006-01-02" }}">
+                </div>
+            </div>
+
+            <!--Отправка формы-->
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+</main>
+
+{{ template "footer" }}
+{{ end }}

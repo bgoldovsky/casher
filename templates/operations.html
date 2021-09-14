@@ -1,0 +1,55 @@
+{{ define "operations" }}
+{{ template "header" }}
+
+<main class="container">
+    <div class="bg-light p-5 rounded">
+        <h1>Операции</h1>
+        <!--Итерирование по коллекции в шаблоне-->
+        {{ range .Operations }}
+        <ul>
+            <li class="list-group-item"><b>Статья расхода:</b> {{ .Subject }}</li>
+            <li class="list-group-item"><b>Сумма:</b> {{ printf "%.2f" .Amount }}</li>
+            <li class="list-group-item"><b>Тип операции:</b> {{ .Type }}</li>
+            <li class="list-group-item"><b>Сообщение:</b> {{ .Message }}</li>
+            <li class="list-group-item"><b>Дата:</b> {{ .Created.Format "01-02-2006 15:04:05" }}</li>
+            <li class="list-group-item">
+                <form method="POST" action="delete/{{ .ID }}" class="inline">
+                    <button type="submit"  class="btn btn-danger">Удалить</button>
+                </form>
+            </li>
+        </ul>
+        {{ else }}
+        <li class="list-group-item">Операции не найдены</li>
+        {{ end }}
+
+        <ul class="pagination justify-content-center">
+            <!--Для использования функций в шаблоне их надо передать при парсинге-->
+            {{ if .HasPrev }}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ dec .Page }}">Назад</a>
+            </li>
+            {{ else }}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Назад</a>
+            </li>
+            {{ end }}
+
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#"> <span class="sr-only">{{ .Page }}</span></a>
+            </li>
+
+            {{ if .HasNext }}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ inc .Page }}">Вперед</a>
+            </li>
+            {{ else }}
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Вперед</a>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+</main>
+
+{{ template "footer" }}
+{{ end }}
